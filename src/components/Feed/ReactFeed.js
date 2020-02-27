@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Post from './Post'
+import {withRouter} from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 class ReactFeed extends Component {
   constructor(props){
@@ -27,11 +29,15 @@ class ReactFeed extends Component {
 		body: JSON.stringify(postsAux[index])
 	}
 
-	fetch('https://reactcourseapi.herokuapp.com/post/', config)
+	fetch('https://reactcourseapi.herokuapp.com/post/like', config)
 		.then(res => {this.fetchData()})
 		
   }
-
+  
+  logoutHandler =()=>{
+    localStorage.clear()
+    this.props.history.push("/login")
+  }
   fetchData = () => {
 	let config = {
 		method: "GET",
@@ -57,11 +63,14 @@ class ReactFeed extends Component {
   
   render(){
     const postsComponents = this.state.posts.map((post, index) => {
-		
+    
+      //prop-Types creando componentes, se documenta que espera ese componente y se comunica de la misma forma
+      //Que tipo esta esperando, si se le pasa tipos de datos que no corresponde lanza errores
+      //DOCUMENTAR LOS COMPONENTES 
       return (<Post
         key = {index}
         name = {post.user}
-		likes = {post.likes}
+		    likes = {post.likes}
         title = {post.title}
         text = {post.text}
         image = {post.image}
@@ -71,6 +80,11 @@ class ReactFeed extends Component {
     });
   
     return (
+      <>
+      <Helmet>
+        <title>React Feed</title>
+      </Helmet>
+      <button onClick={this.logoutHandler}>Logout</button>
       <div className = "container">
         <h1 className="display-3">ReactFeed</h1>
         <h2>Recent posts</h2>
@@ -79,6 +93,7 @@ class ReactFeed extends Component {
           {postsComponents}
         </div>
       </div>
+      </>
     );
   }
 }
