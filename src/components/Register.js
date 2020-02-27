@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withRouter} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 import {Helmet} from "react-helmet";
 
 const initState = {
@@ -100,6 +100,9 @@ const initState = {
 							</label>
 						</div>
 						<button className="btn btn-primary" type="submit">Sign up</button>
+						<Link to = "/login"><button>
+								Login 
+							</button></Link>
 					</form>
 					{this.state.errorFlag && 
 						<div className="alert alert-dismissible alert-danger">
