@@ -35,9 +35,10 @@ class ReactFeed extends Component {
   }
   
   logoutHandler =()=>{
-    localStorage.clear()
-    this.props.history.push("/login")
+    localStorage.clear();
+    this.props.history.push("/login");
   }
+
   fetchData = () => {
 	let config = {
 		method: "GET",
@@ -98,4 +99,4 @@ class ReactFeed extends Component {
   }
 }
 
-export default ReactFeed;
+export default withRouter(ReactFeed);

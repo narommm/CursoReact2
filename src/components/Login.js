@@ -43,7 +43,8 @@ class Login extends Component{
 					res.json()
 					.then (data => {
 						localStorage.setItem('token', data.token);
-						this.setState({...initState})
+						this.props.history.push("/");
+
 					})
 				} else {
 					this.setState({
